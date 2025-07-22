@@ -1,4 +1,6 @@
 import { defineConfig } from 'vite'
+import { copyFileSync } from 'fs'
+import { resolve } from 'path'
 
 export default defineConfig({
   root: './lpsite',
@@ -18,5 +20,21 @@ export default defineConfig({
   server: {
     port: 3000,
     host: true
-  }
+  },
+  plugins: [
+    {
+      name: 'copy-cname',
+      writeBundle() {
+        try {
+          copyFileSync(
+            resolve(__dirname, 'lpsite/CNAME'),
+            resolve(__dirname, 'dist/CNAME')
+          )
+          console.log('CNAME file copied to dist directory')
+        } catch (error) {
+          console.warn('Could not copy CNAME file:', error.message)
+        }
+      }
+    }
+  ]
 })
