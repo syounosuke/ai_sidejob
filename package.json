@@ -1,0 +1,35 @@
+{
+  "name": "syonosuke-links-sanity",
+  "version": "1.0.0",
+  "description": "Syonosuke's personal links page with Sanity CMS",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "sanity": "sanity dev"
+  },
+  "keywords": [
+    "sanity",
+    "cms",
+    "personal-site"
+  ],
+  "author": "Syonosuke",
+  "license": "MIT",
+  "dependencies": {
+    "@sanity/client": "^6.10.0",
+    "@sanity/image-url": "^1.0.2",
+    "@sanity/vision": "^3.25.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "sanity": "^3.25.0",
+    "styled-components": "^6.1.19"
+  },
+  "devDependencies": {
+    "@sanity/cli": "^3.25.0",
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
+    "typescript": "^5.0.0",
+    "vite": "^5.0.0"
+  }
+}
