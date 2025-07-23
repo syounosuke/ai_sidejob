@@ -10,6 +10,10 @@ export default defineConfig({
     emptyOutDir: true,
     assetsDir: 'assets',
     rollupOptions: {
+      input: {
+        main: resolve(__dirname, 'lpsite/index.html'),
+        'recent-articles': resolve(__dirname, 'lpsite/recent-articles.html')
+      },
       output: {
         assetFileNames: 'assets/[name]-[hash][extname]',
         chunkFileNames: 'assets/[name]-[hash].js',
