@@ -91,9 +91,60 @@ async function init() {
   ])
 }
 
+// Mobile menu functionality
+function initMobileMenu() {
+  const mobileToggle = document.querySelector('.mobile-menu-toggle')
+  const navLinks = document.querySelector('.nav-links')
+  
+  if (mobileToggle && navLinks) {
+    mobileToggle.addEventListener('click', () => {
+      mobileToggle.classList.toggle('active')
+      navLinks.classList.toggle('active')
+    })
+    
+    // Close menu when clicking on a link
+    navLinks.addEventListener('click', (e) => {
+      if (e.target.tagName === 'A') {
+        mobileToggle.classList.remove('active')
+        navLinks.classList.remove('active')
+      }
+    })
+    
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!mobileToggle.contains(e.target) && !navLinks.contains(e.target)) {
+        mobileToggle.classList.remove('active')
+        navLinks.classList.remove('active')
+      }
+    })
+  }
+}
+
+// Smooth scrolling for internal links
+function initSmoothScrolling() {
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault()
+      const target = document.querySelector(this.getAttribute('href'))
+      if (target) {
+        target.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        })
+      }
+    })
+  })
+}
+
 // Load data when DOM is ready
 if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', init)
+  document.addEventListener('DOMContentLoaded', () => {
+    init()
+    initMobileMenu()
+    initSmoothScrolling()
+  })
 } else {
   init()
+  initMobileMenu()
+  initSmoothScrolling()
 }

@@ -24,8 +24,26 @@
     <script type="module" src="../src/js/main.js"></script>
 </head>
 <body>
+    <header class="header-bar">
+        <nav class="header-nav">
+            <div class="logo">
+                <span>Syonosuke</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#profile">Profile</a></li>
+                <li><a href="#links">Links</a></li>
+                <li><a href="#popular-articles">Articles</a></li>
+                <li><a href="https://x.com/syounosukeblog" target="_blank">Contact</a></li>
+            </ul>
+            <div class="mobile-menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
     <main class="container">
-        <header class="profile">
+        <header class="profile" id="profile">
             <img src="profilepicture.png" alt="プロフィール画像" class="profile-image animated-item">
             <h1 class="animated-item">Syonosuke</h1>
             <p class="catchphrase animated-item">効率化で生活を豊かに</p>
@@ -33,7 +51,7 @@
                 個人事業主、副業やAI情報を発信しています。<br>このページは私のコンテンツハブです。<br>お好きなページへどうぞ!!
             </p>
         </header>
-        <nav class="links">
+        <nav class="links" id="links">
             <a href="https://syounosukeblog.com/" target="_blank" rel="noopener noreferrer" class="link-button blog animated-item">
                 <i class="fas fa-blog"></i>
                 <span>Blog</span>
