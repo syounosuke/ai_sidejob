@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>基本テスト</title>
+    <style>
+        body { padding: 20px; font-family: Arial; background: #000; color: #fff; }
+        .step { padding: 10px; margin: 5px 0; background: #333; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <h1>基本動作テスト</h1>
+    
+    <div id="step1" class="step">1. HTML読み込み: ✅</div>
+    <div id="step2" class="step">2. JavaScript開始: ❌</div>
+    <div id="step3" class="step">3. 基本機能テスト: ❌</div>
+    <div id="step4" class="step">4. Sanity接続テスト: ❌</div>
+    
+    <div id="result" style="margin-top: 20px; padding: 20px; background: #222; border-radius: 10px;">
+        結果待機中...
+    </div>
+
+    <script>
+        console.log('=== 基本テスト開始 ===');
+        
+        // Step 2: JavaScript動作確認
+        document.getElementById('step2').innerHTML = '2. JavaScript開始: ✅';
+        document.getElementById('step2').style.background = '#2a5d31';
+        
+        // Step 3: 基本機能テスト
+        try {
+            const now = new Date().toLocaleString();
+            document.getElementById('step3').innerHTML = `3. 基本機能テスト: ✅ (${now})`;
+            document.getElementById('step3').style.background = '#2a5d31';
+        } catch (e) {
+            document.getElementById('step3').innerHTML = `3. 基本機能テスト: ❌ ${e.message}`;
+            document.getElementById('step3').style.background = '#7d2d2d';
+        }
+        
+        // Step 4: 最もシンプルなSanity接続テスト
+        async function testSanity() {
+            const resultDiv = document.getElementById('result');
+            
+            try {
+                resultDiv.innerHTML = '🔄 Sanity接続テスト中...';
+                
+                // 最もシンプルなリクエスト
+                const response = await fetch('https://li8wy5y0.api.sanity.io/v2024-01-01/data/query/production?query=*%5B_type%20%3D%3D%20%22article%22%5D%5B0%5D%7Btitle%7D');
+                
+                resultDiv.innerHTML += `<br>📡 ステータス: ${response.status}`;
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    document.getElementById('step4').innerHTML = '4. Sanity接続テスト: ✅';
+                    document.getElementById('step4').style.background = '#2a5d31';
+                    
+                    resultDiv.innerHTML += `<br>✅ 成功!`;
+                    resultDiv.innerHTML += `<br>📊 データ: <pre>${JSON.stringify(data, null, 2)}</pre>`;
+                } else {
+                    throw new Error(`HTTP ${response.status}`);
+                }
+                
+            } catch (error) {
+                document.getElementById('step4').innerHTML = `4. Sanity接続テスト: ❌ ${error.message}`;
+                document.getElementById('step4').style.background = '#7d2d2d';
+                
+                resultDiv.innerHTML += `<br>❌ エラー: ${error.message}`;
+                resultDiv.innerHTML += `<br>🌐 ブラウザ: ${navigator.userAgent.substring(0, 50)}...`;
+                resultDiv.innerHTML += `<br>📍 URL: ${window.location.href}`;
+            }
+        }
+        
+        // 2秒後にテスト実行
+        setTimeout(testSanity, 2000);
+    </script>
+</body>
+</html>

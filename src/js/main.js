@@ -83,6 +83,7 @@ async function loadPopularArticles() {
   }
 }
 
+
 // Initialize the page
 async function init() {
   await Promise.all([
@@ -120,20 +121,33 @@ function initMobileMenu() {
   }
 }
 
-// Smooth scrolling for internal links
+// Smooth scrolling for internal links only
 function initSmoothScrolling() {
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
+  // 完全に特定のリンクのみに限定
+  const profileLink = document.querySelector('a[href="#profile"]')
+  const linksLink = document.querySelector('a[href="#links"]')  
+  const popularLink = document.querySelector('a[href="#popular-articles"]')
+  
+  if (profileLink) {
+    profileLink.addEventListener('click', function (e) {
       e.preventDefault()
-      const target = document.querySelector(this.getAttribute('href'))
-      if (target) {
-        target.scrollIntoView({
-          behavior: 'smooth',
-          block: 'start'
-        })
-      }
+      document.querySelector('#profile')?.scrollIntoView({ behavior: 'smooth' })
     })
-  })
+  }
+  
+  if (linksLink) {
+    linksLink.addEventListener('click', function (e) {
+      e.preventDefault()
+      document.querySelector('#links')?.scrollIntoView({ behavior: 'smooth' })
+    })
+  }
+  
+  if (popularLink) {
+    popularLink.addEventListener('click', function (e) {
+      e.preventDefault()
+      document.querySelector('#popular-articles')?.scrollIntoView({ behavior: 'smooth' })
+    })
+  }
 }
 
 // Load data when DOM is ready
@@ -147,4 +161,58 @@ if (document.readyState === 'loading') {
   init()
   initMobileMenu()
   initSmoothScrolling()
+}
+
+// 直接テスト用関数
+window.testSanityDirect = async function() {
+  const newWindow = window.open('', '_blank')
+  newWindow.document.write(`
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <title>新着記事テスト</title>
+      <style>
+        body { background: #000; color: #fff; padding: 20px; font-family: Arial; }
+        .step { padding: 10px; margin: 5px 0; background: #333; border-radius: 5px; }
+        .success { background: #2a5d31 !important; }
+        .error { background: #7d2d2d !important; }
+      </style>
+    </head>
+    <body>
+      <h1>新着記事テスト</h1>
+      <div id="step1" class="step">1. HTML読み込み: ✅</div>
+      <div id="step2" class="step">2. JavaScript開始: ❌</div>
+      <div id="step3" class="step">3. データ取得テスト: ❌</div>
+      <div id="result" style="margin-top:20px; padding:20px; background:#222; border-radius:10px;">結果待機中...</div>
+      <script>
+        document.getElementById('step2').innerHTML = '2. JavaScript開始: ✅';
+        document.getElementById('step2').className = 'step success';
+        
+        async function test() {
+          try {
+            document.getElementById('result').innerHTML = '🔄 テスト中...';
+            
+            const response = await fetch('https://li8wy5y0.api.sanity.io/v2024-01-01/data/query/production?query=*[_type=="article"][0]{title}');
+            
+            if (response.ok) {
+              const data = await response.json();
+              document.getElementById('step3').innerHTML = '3. データ取得テスト: ✅';
+              document.getElementById('step3').className = 'step success';
+              document.getElementById('result').innerHTML = '✅ 成功! データ: <pre>' + JSON.stringify(data, null, 2) + '</pre>';
+            } else {
+              throw new Error('HTTP ' + response.status);
+            }
+          } catch(e) {
+            document.getElementById('step3').innerHTML = '3. データ取得テスト: ❌ ' + e.message;
+            document.getElementById('step3').className = 'step error';
+            document.getElementById('result').innerHTML = '❌ エラー: ' + e.message;
+          }
+        }
+        
+        setTimeout(test, 1000);
+      </script>
+    </body>
+    </html>
+  `)
+  newWindow.document.close()
 }

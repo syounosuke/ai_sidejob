@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>デバッグテスト</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #222;
+            color: #fff;
+        }
+        .status {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .loading { background: #333; }
+        .success { background: #2a5d31; }
+        .error { background: #7d2d2d; }
+        .info { background: #2a4d7d; }
+        pre { background: #111; padding: 10px; border-radius: 5px; overflow-x: auto; }
+    </style>
+</head>
+<body>
+    <h1>新着記事デバッグテスト</h1>
+    <div id="log"></div>
+
+    <script>
+        const log = document.getElementById('log');
+        
+        function addLog(message, type = 'info') {
+            const div = document.createElement('div');
+            div.className = `status ${type}`;
+            div.innerHTML = `[${new Date().toLocaleTimeString()}] ${message}`;
+            log.appendChild(div);
+            console.log(message);
+        }
+
+        async function runTest() {
+            addLog('🔍 デバッグテスト開始', 'loading');
+            
+            // 1. 基本的な接続テスト
+            try {
+                addLog('📡 Sanity API接続テスト中...');
+                
+                const testUrl = 'https://li8wy5y0.api.sanity.io/v2024-01-01/data/query/production';
+                addLog(`接続先: ${testUrl}`);
+                
+                const response = await fetch(testUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        query: '*[_type == "article"][0...2]{title,platform}'
+                    })
+                });
+                
+                addLog(`📊 レスポンス情報:`);
+                addLog(`- ステータス: ${response.status} ${response.statusText}`);
+                addLog(`- OK: ${response.ok}`);
+                addLog(`- Headers: ${JSON.stringify(Object.fromEntries(response.headers))}`);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
+                const data = await response.json();
+                addLog('✅ JSON解析成功', 'success');
+                addLog(`📝 取得データ:`, 'success');
+                addLog(`<pre>${JSON.stringify(data, null, 2)}</pre>`);
+                
+                const articles = data.result || [];
+                addLog(`📚 記事数: ${articles.length}件`, 'success');
+                
+                if (articles.length > 0) {
+                    articles.forEach((article, index) => {
+                        addLog(`記事${index + 1}: ${article.title} (${article.platform})`, 'success');
+                    });
+                } else {
+                    addLog('⚠️ 記事が見つかりません', 'error');
+                }
+                
+            } catch (error) {
+                addLog(`❌ エラー発生: ${error.message}`, 'error');
+                addLog(`🔧 エラー詳細: ${error.stack}`, 'error');
+                
+                // 追加情報
+                addLog('🌐 ネットワーク情報:', 'info');
+                addLog(`- User Agent: ${navigator.userAgent}`);
+                addLog(`- Online: ${navigator.onLine}`);
+                addLog(`- Location: ${window.location.href}`);
+            }
+            
+            // 2. 簡単なフォールバックテスト
+            try {
+                addLog('🔄 GET リクエストでのフォールバックテスト...');
+                const getUrl = 'https://li8wy5y0.api.sanity.io/v2024-01-01/data/query/production?query=*%5B_type%20%3D%3D%20%22article%22%5D%5B0...2%5D%7Btitle%7D';
+                const getResponse = await fetch(getUrl);
+                addLog(`GET レスポンス: ${getResponse.status}`, getResponse.ok ? 'success' : 'error');
+                
+                if (getResponse.ok) {
+                    const getData = await getResponse.json();
+                    addLog(`GET データ: ${JSON.stringify(getData)}`, 'success');
+                }
+            } catch (getError) {
+                addLog(`GET エラー: ${getError.message}`, 'error');
+            }
+            
+            addLog('🏁 テスト完了');
+        }
+
+        // テスト実行
+        runTest();
+    </script>
+</body>
+</html>

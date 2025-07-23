@@ -46,4 +46,18 @@ export async function getPopularArticles() {
   return await client.fetch(query)
 }
 
+// Fetch recent articles (新着記事を取得)
+export async function getRecentArticles(limit = 6) {
+  const query = `*[_type == "article"] | order(publishedAt desc)[0...${limit}]{
+    title,
+    url,
+    thumbnail,
+    platform,
+    publishedAt,
+    "publishedDate": publishedAt
+  }`
+  
+  return await client.fetch(query)
+}
+
 export default client

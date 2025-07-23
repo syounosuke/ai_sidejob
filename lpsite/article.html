@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>記事詳細 - 祥之助's Links</title>
+    <link rel="icon" href="profilepicture.png" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            color: white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px 0;
+        }
+
+        .back-btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .back-btn:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+        }
+
+        .article-meta {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .platform {
+            display: inline-block;
+            padding: 6px 16px;
+            background: #ff6f61;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        .platform.note {
+            background: #41c9b4;
+        }
+
+        .date {
+            display: inline-block;
+            padding: 6px 16px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            font-size: 0.9rem;
+        }
+
+        .article-title {
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+            text-align: center;
+            background: linear-gradient(45deg, #fdbb2d, #ffffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.3;
+        }
+
+        .article-thumbnail {
+            width: 100%;
+            max-width: 600px;
+            height: auto;
+            border-radius: 15px;
+            margin: 0 auto 30px auto;
+            display: block;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .article-content {
+            background: rgba(255,255,255,0.1);
+            padding: 30px;
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+            margin-bottom: 30px;
+        }
+
+        .article-content h1 {
+            font-size: 1.8rem;
+            margin: 30px 0 15px 0;
+            color: #fdbb2d;
+        }
+
+        .article-content h2 {
+            font-size: 1.5rem;
+            margin: 25px 0 12px 0;
+            color: #fdbb2d;
+        }
+
+        .article-content h3 {
+            font-size: 1.3rem;
+            margin: 20px 0 10px 0;
+            color: #fdbb2d;
+        }
+
+        .article-content h4 {
+            font-size: 1.1rem;
+            margin: 15px 0 8px 0;
+            color: #fdbb2d;
+        }
+
+        .article-content p {
+            margin-bottom: 15px;
+            font-size: 1.05rem;
+        }
+
+        .article-content blockquote {
+            border-left: 4px solid #fdbb2d;
+            padding-left: 20px;
+            margin: 20px 0;
+            font-style: italic;
+            background: rgba(253, 187, 45, 0.1);
+            padding: 15px 20px;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .article-content ul, .article-content ol {
+            margin: 15px 0;
+            padding-left: 30px;
+        }
+
+        .article-content li {
+            margin-bottom: 8px;
+        }
+
+        .article-content a {
+            color: #fdbb2d;
+            text-decoration: underline;
+        }
+
+        .article-content a:hover {
+            color: #ffffff;
+        }
+
+        .article-content strong {
+            font-weight: bold;
+            color: #fdbb2d;
+        }
+
+        .article-content em {
+            font-style: italic;
+        }
+
+        .article-content code {
+            background: rgba(0,0,0,0.3);
+            padding: 3px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+
+        .code-block {
+            background: rgba(0,0,0,0.5);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 10px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .code-header {
+            background: rgba(0,0,0,0.3);
+            padding: 10px 15px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.9rem;
+            color: #fdbb2d;
+        }
+
+        .code-content {
+            padding: 15px;
+            overflow-x: auto;
+        }
+
+        .code-content pre {
+            margin: 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.4;
+            white-space: pre-wrap;
+        }
+
+        .article-image {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin: 20px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .image-caption {
+            text-align: center;
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-top: 8px;
+            font-style: italic;
+        }
+
+        .highlight {
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+
+        .highlight.yellow {
+            background: rgba(255, 255, 0, 0.3);
+        }
+
+        .highlight.blue {
+            background: rgba(0, 100, 255, 0.3);
+        }
+
+        .highlight.green {
+            background: rgba(0, 255, 100, 0.3);
+        }
+
+        .highlight.red {
+            background: rgba(255, 50, 50, 0.3);
+        }
+
+        .loading {
+            text-align: center;
+            padding: 60px 20px;
+            font-size: 1.2rem;
+        }
+
+        .error {
+            text-align: center;
+            padding: 60px 20px;
+            color: #ff6b6b;
+            font-size: 1.1rem;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+
+            .article-title {
+                font-size: 1.8rem;
+            }
+
+            .article-content {
+                padding: 20px;
+            }
+
+            .article-meta {
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <a href="index.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i> ホームに戻る
+            </a>
+        </div>
+
+        <div id="loading" class="loading">
+            <i class="fas fa-spinner fa-spin"></i> 記事を読み込み中...
+        </div>
+
+        <div id="error" class="error" style="display: none;">
+            <i class="fas fa-exclamation-triangle"></i>
+            <p>記事の読み込みに失敗しました。</p>
+            <p><a href="index.html">ホームに戻る</a></p>
+        </div>
+
+        <article id="article" style="display: none;">
+            <div class="article-meta">
+                <span id="platform" class="platform"></span>
+                <span id="date" class="date"></span>
+            </div>
+            
+            <h1 id="title" class="article-title"></h1>
+            
+            <img id="thumbnail" class="article-thumbnail" style="display: none;">
+            
+            <div id="content" class="article-content"></div>
+        </article>
+    </div>
+
+    <script>
+        // URLからスラッグを取得
+        const urlParams = new URLSearchParams(window.location.search);
+        const slug = urlParams.get('slug');
+
+        if (!slug) {
+            showError('記事のスラッグが指定されていません。');
+        } else {
+            loadArticle(slug);
+        }
+
+        async function loadArticle(slug) {
+            try {
+                // Sanity APIから記事データを取得
+                const projectId = 'li8wy5y0';
+                const dataset = 'production';
+                const query = `*[_type == "article" && slug.current == "${slug}"][0]{
+                    title,
+                    content,
+                    thumbnail,
+                    platform,
+                    publishedAt,
+                    excerpt
+                }`;
+
+                const url = `https://${projectId}.api.sanity.io/v2024-01-01/data/query/${dataset}?query=${encodeURIComponent(query)}`;
+                
+                const response = await fetch(url);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}`);
+                }
+
+                const data = await response.json();
+                const article = data.result;
+
+                if (!article) {
+                    throw new Error('記事が見つかりません');
+                }
+
+                displayArticle(article);
+                
+            } catch (error) {
+                console.error('記事の読み込みエラー:', error);
+                showError(`記事の読み込みに失敗しました: ${error.message}`);
+            }
+        }
+
+        function displayArticle(article) {
+            // ローディングを非表示
+            document.getElementById('loading').style.display = 'none';
+            
+            // 記事データを表示
+            document.getElementById('title').textContent = article.title;
+            
+            // プラットフォーム
+            const platformEl = document.getElementById('platform');
+            platformEl.textContent = article.platform === 'blog' ? 'Blog' : 'Note';
+            platformEl.className = `platform ${article.platform}`;
+            
+            // 公開日
+            const dateEl = document.getElementById('date');
+            if (article.publishedAt) {
+                const date = new Date(article.publishedAt);
+                dateEl.textContent = date.toLocaleDateString('ja-JP');
+            }
+            
+            // サムネイル
+            if (article.thumbnail) {
+                const thumbnailEl = document.getElementById('thumbnail');
+                thumbnailEl.src = `https://cdn.sanity.io/images/li8wy5y0/production/${article.thumbnail.asset._ref.replace('image-', '').replace('-jpg', '.jpg').replace('-png', '.png').replace('-webp', '.webp')}`;
+                thumbnailEl.alt = article.title;
+                thumbnailEl.style.display = 'block';
+            }
+            
+            // コンテンツ
+            const contentEl = document.getElementById('content');
+            if (article.content && Array.isArray(article.content)) {
+                contentEl.innerHTML = renderPortableText(article.content);
+            } else {
+                contentEl.innerHTML = `<p>${article.excerpt || '記事内容を表示できませんでした。'}</p>`;
+            }
+            
+            // 記事を表示
+            document.getElementById('article').style.display = 'block';
+        }
+
+        function renderPortableText(blocks) {
+            return blocks.map(block => {
+                if (block._type === 'block') {
+                    return renderBlock(block);
+                } else if (block._type === 'image') {
+                    return renderImage(block);
+                } else if (block._type === 'codeBlock') {
+                    return renderCodeBlock(block);
+                }
+                return '';
+            }).join('');
+        }
+
+        function renderBlock(block) {
+            const style = block.style || 'normal';
+            const children = block.children || [];
+            
+            const content = children.map(child => {
+                let text = child.text || '';
+                
+                // マークアップを適用
+                if (child.marks) {
+                    child.marks.forEach(mark => {
+                        if (mark === 'strong') {
+                            text = `<strong>${text}</strong>`;
+                        } else if (mark === 'em') {
+                            text = `<em>${text}</em>`;
+                        } else if (mark === 'underline') {
+                            text = `<u>${text}</u>`;
+                        } else if (mark === 'strike-through') {
+                            text = `<s>${text}</s>`;
+                        } else if (mark === 'code') {
+                            text = `<code>${text}</code>`;
+                        } else if (typeof mark === 'object') {
+                            if (mark._type === 'link') {
+                                const target = mark.blank ? ' target="_blank"' : '';
+                                text = `<a href="${mark.href}"${target}>${text}</a>`;
+                            } else if (mark._type === 'highlight') {
+                                text = `<span class="highlight ${mark.color}">${text}</span>`;
+                            }
+                        }
+                    });
+                }
+                
+                return text;
+            }).join('');
+            
+            // スタイルに応じてHTMLタグを選択
+            switch (style) {
+                case 'h1': return `<h1>${content}</h1>`;
+                case 'h2': return `<h2>${content}</h2>`;
+                case 'h3': return `<h3>${content}</h3>`;
+                case 'h4': return `<h4>${content}</h4>`;
+                case 'blockquote': return `<blockquote>${content}</blockquote>`;
+                default: return `<p>${content}</p>`;
+            }
+        }
+
+        function renderImage(imageBlock) {
+            if (!imageBlock.asset) return '';
+            
+            const imageUrl = `https://cdn.sanity.io/images/li8wy5y0/production/${imageBlock.asset._ref.replace('image-', '').replace('-jpg', '.jpg').replace('-png', '.png').replace('-webp', '.webp')}`;
+            const alt = imageBlock.alt || '';
+            const caption = imageBlock.caption || '';
+            
+            let html = `<img src="${imageUrl}" alt="${alt}" class="article-image">`;
+            if (caption) {
+                html += `<div class="image-caption">${caption}</div>`;
+            }
+            
+            return html;
+        }
+
+        function renderCodeBlock(codeBlock) {
+            const language = codeBlock.language || 'text';
+            const code = codeBlock.code || '';
+            const filename = codeBlock.filename || '';
+            
+            let header = language.charAt(0).toUpperCase() + language.slice(1);
+            if (filename) {
+                header += ` - ${filename}`;
+            }
+            
+            return `
+                <div class="code-block">
+                    <div class="code-header">${header}</div>
+                    <div class="code-content">
+                        <pre><code>${escapeHtml(code)}</code></pre>
+                    </div>
+                </div>
+            `;
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function showError(message) {
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('error').style.display = 'block';
+            document.querySelector('#error p').textContent = message;
+        }
+    </script>
+</body>
+</html>
