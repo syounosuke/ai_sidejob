@@ -22,77 +22,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="style.css">
     <script type="module" src="../src/js/main.js"></script>
-    <script>
-        window.testSanity = function() {
-            // 新着記事を直接HTMLに表示（API不要）
-            const articles = [
-                { 
-                    title: 'AI活用で作業時間を50%短縮！実践的な効率化テクニック', 
-                    platform: 'blog', 
-                    date: '2024-01-15',
-                    excerpt: 'AI技術を活用して日常業務を効率化する具体的な方法をご紹介します。',
-                    slug: 'ai-efficiency-techniques'
-                },
-                { 
-                    title: '個人事業主が知っておくべき副業の始め方と注意点', 
-                    platform: 'note', 
-                    date: '2024-02-10',
-                    excerpt: '副業を始める前に知っておくべき法的な注意点と成功のコツを解説します。',
-                    slug: 'side-business-guide'
-                },
-                { 
-                    title: 'リモートワークで生産性を最大化する5つの方法', 
-                    platform: 'blog', 
-                    date: '2024-03-05',
-                    excerpt: '在宅勤務でも高い生産性を維持するための実践的なテクニックをまとめました。',
-                    slug: 'remote-work-productivity'
-                }
-            ];
-            
-            let html = `
-                <!DOCTYPE html>
-                <html>
-                <head>
-                    <title>祥之助の新着記事</title>
-                    <style>
-                        body { background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d); color: white; padding: 20px; font-family: Arial; min-height: 100vh; }
-                        .header { text-align: center; margin-bottom: 40px; }
-                        .back-btn { display: inline-block; padding: 10px 20px; background: rgba(255,255,255,0.2); color: white; text-decoration: none; border-radius: 25px; margin-bottom: 20px; }
-                        .article { background: rgba(255,255,255,0.1); padding: 20px; margin: 20px 0; border-radius: 15px; border: 1px solid rgba(255,255,255,0.2); }
-                        .article h3 { margin: 0 0 10px 0; color: #fdbb2d; }
-                        .platform { display: inline-block; padding: 4px 12px; background: #ff6f61; border-radius: 12px; font-size: 0.8rem; margin: 10px 0; }
-                        .platform.note { background: #41c9b4; }
-                    </style>
-                </head>
-                <body>
-                    <div class="header">
-                        <a href="javascript:window.close()" class="back-btn">← 閉じる</a>
-                        <h1>祥之助の新着記事</h1>
-                        <p>最新記事を公開日順で表示</p>
-                    </div>
-            `;
-            
-            articles.forEach(article => {
-                html += `
-                    <div class="article" onclick="window.open('article.html?slug=${article.slug}', '_blank')" style="cursor: pointer;">
-                        <div class="platform ${article.platform}">${article.platform === 'blog' ? 'Blog' : 'Note'}</div>
-                        <h3>${article.title}</h3>
-                        <p style="margin: 10px 0; font-size: 0.95rem; line-height: 1.5; opacity: 0.9;">${article.excerpt}</p>
-                        <div style="font-size: 0.9rem; opacity: 0.8;">${article.date}</div>
-                    </div>
-                `;
-            });
-            
-            html += `
-                    </body>
-                </html>
-            `;
-            
-            const newWindow = window.open('', '_blank');
-            newWindow.document.write(html);
-            newWindow.document.close();
-        }
-    </script>
 </head>
 <body>
     <header class="header-bar">
@@ -104,7 +33,7 @@
                 <li><a href="#profile">プロフィール</a></li>
                 <li><a href="#links">リンク</a></li>
                 <li><a href="#popular-articles">人気記事</a></li>
-                <li><a href="#" onclick="testSanity()">新着記事</a></li>
+                <li><a href="recent-articles.html">新着記事</a></li>
                 <li><a href="https://x.com/syounosukeblog" target="_blank">お問い合わせ</a></li>
             </ul>
             <div class="mobile-menu-toggle">
