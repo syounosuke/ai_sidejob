@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>新着記事 - 祥之助's Links</title>
+    <link rel="icon" href="profilepicture.png" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="recent-articles.css">
+</head>
+<body>
+    <header class="header-bar">
+        <nav class="header-nav">
+            <div class="logo">
+                <a href="index.html">
+                    <span>祥之助</span>
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#profile">Profile</a></li>
+                <li><a href="index.html#links">Links</a></li>
+                <li><a href="index.html#popular-articles">Popular</a></li>
+                <li><a href="recent-articles-simple.html" class="active">Recent</a></li>
+                <li><a href="https://x.com/syounosukeblog" target="_blank">Contact</a></li>
+            </ul>
+            <div class="mobile-menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container">
+        <div class="page-header">
+            <h1>新着記事</h1>
+            <p class="page-description">最新の記事を公開日順でご紹介します</p>
+        </div>
+
+        <section class="articles-section">
+            <div class="filter-controls">
+                <button class="filter-btn active" data-filter="all">すべて</button>
+                <button class="filter-btn" data-filter="blog">Blog</button>
+                <button class="filter-btn" data-filter="note">Note</button>
+            </div>
+
+            <div class="articles-grid" id="articles-grid">
+                <!-- Sample articles -->
+                <article class="article-card">
+                    <a href="https://syounosukeblog.com/ai-efficiency-techniques" target="_blank" rel="noopener noreferrer">
+                        <div class="article-image">
+                            <span class="platform-badge platform-blog">Blog</span>
+                        </div>
+                        <div class="article-content">
+                            <h3>AI活用で作業時間を50%短縮！実践的な効率化テクニック</h3>
+                            <time class="published-date">
+                                <i class="fas fa-calendar-alt"></i>
+                                2024年7月15日
+                            </time>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="article-card">
+                    <a href="https://note.com/syounosuke/n/side-business-guide" target="_blank" rel="noopener noreferrer">
+                        <div class="article-image">
+                            <span class="platform-badge platform-note">Note</span>
+                        </div>
+                        <div class="article-content">
+                            <h3>個人事業主が知っておくべき副業の始め方と注意点</h3>
+                            <time class="published-date">
+                                <i class="fas fa-calendar-alt"></i>
+                                2024年7月10日
+                            </time>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="article-card">
+                    <a href="https://syounosukeblog.com/remote-work-productivity" target="_blank" rel="noopener noreferrer">
+                        <div class="article-image">
+                            <span class="platform-badge platform-blog">Blog</span>
+                        </div>
+                        <div class="article-content">
+                            <h3>リモートワークで生産性を最大化する5つの方法</h3>
+                            <time class="published-date">
+                                <i class="fas fa-calendar-alt"></i>
+                                2024年7月5日
+                            </time>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="article-card">
+                    <a href="https://note.com/syounosuke/n/freelance-tools" target="_blank" rel="noopener noreferrer">
+                        <div class="article-image">
+                            <span class="platform-badge platform-note">Note</span>
+                        </div>
+                        <div class="article-content">
+                            <h3>フリーランス必須！効率化ツール10選</h3>
+                            <time class="published-date">
+                                <i class="fas fa-calendar-alt"></i>
+                                2024年6月30日
+                            </time>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="article-card">
+                    <a href="https://syounosukeblog.com/ai-marketing" target="_blank" rel="noopener noreferrer">
+                        <div class="article-image">
+                            <span class="platform-badge platform-blog">Blog</span>
+                        </div>
+                        <div class="article-content">
+                            <h3>AIを活用したマーケティング戦略の最新トレンド</h3>
+                            <time class="published-date">
+                                <i class="fas fa-calendar-alt"></i>
+                                2024年6月25日
+                            </time>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="article-card">
+                    <a href="https://note.com/syounosuke/n/business-automation" target="_blank" rel="noopener noreferrer">
+                        <div class="article-image">
+                            <span class="platform-badge platform-note">Note</span>
+                        </div>
+                        <div class="article-content">
+                            <h3>業務自動化で時間を作る！実践的なワークフロー設計</h3>
+                            <time class="published-date">
+                                <i class="fas fa-calendar-alt"></i>
+                                2024年6月20日
+                            </time>
+                        </div>
+                    </a>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2024 祥之助. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="https://syounosukeblog.com/" target="_blank">Blog</a>
+                <a href="https://x.com/syounosukeblog" target="_blank">X</a>
+                <a href="https://note.com/syounosuke" target="_blank">Note</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple filter functionality
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const articleCards = document.querySelectorAll('.article-card');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const filter = btn.dataset.filter;
+                
+                // Update active button
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                // Filter articles
+                articleCards.forEach(card => {
+                    const platformBadge = card.querySelector('.platform-badge');
+                    const platform = platformBadge.classList.contains('platform-blog') ? 'blog' : 'note';
+                    
+                    if (filter === 'all' || filter === platform) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Mobile menu functionality
+        const mobileToggle = document.querySelector('.mobile-menu-toggle');
+        const navLinks = document.querySelector('.nav-links');
+
+        if (mobileToggle && navLinks) {
+            mobileToggle.addEventListener('click', () => {
+                mobileToggle.classList.toggle('active');
+                navLinks.classList.toggle('active');
+            });
+        }
+    </script>
+</body>
+</html>

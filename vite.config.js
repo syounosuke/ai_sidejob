@@ -13,6 +13,7 @@ export default defineConfig({
       input: {
         main: resolve(__dirname, 'lpsite/index.html'),
         'recent-articles': resolve(__dirname, 'lpsite/recent-articles.html'),
+        'recent-articles-simple': resolve(__dirname, 'lpsite/recent-articles-simple.html'),
         'debug-sanity': resolve(__dirname, 'lpsite/debug-sanity.html')
       },
       output: {
