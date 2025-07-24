@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "vite",
-    "build": "vite build; sanity build dist/admin",
+    "build": "vite build && npm run build:studio",
     "build:studio": "sanity build dist/admin",
     "preview": "vite preview",
     "sanity": "sanity dev"
