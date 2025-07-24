@@ -12,7 +12,8 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: resolve(__dirname, 'lpsite/index.html'),
-        'recent-articles': resolve(__dirname, 'lpsite/recent-articles.html')
+        'recent-articles': resolve(__dirname, 'lpsite/recent-articles.html'),
+        'debug-sanity': resolve(__dirname, 'lpsite/debug-sanity.html')
       },
       output: {
         assetFileNames: 'assets/[name]-[hash][extname]',
