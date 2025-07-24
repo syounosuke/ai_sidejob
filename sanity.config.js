@@ -6,6 +6,7 @@ import { schemaTypes } from './src/sanity/schemas'
 export default defineConfig({
   name: 'default',
   title: 'Syonosuke Links',
+  basePath: '/admin',
 
   projectId: 'li8wy5y0',
   dataset: 'production',
