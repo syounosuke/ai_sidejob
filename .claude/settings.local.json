@@ -20,7 +20,8 @@
       "Bash(gh run list:*)",
       "Bash(git pull:*)",
       "Bash(curl:*)",
-      "Bash(ls:*)"
+      "Bash(ls:*)",
+      "Bash(vercel ls:*)"
     ],
     "deny": []
   }

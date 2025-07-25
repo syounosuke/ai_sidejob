@@ -12,6 +12,7 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: resolve(__dirname, 'lpsite/index.html'),
+        admin: resolve(__dirname, 'lpsite/admin.html'),
         'recent-articles': resolve(__dirname, 'lpsite/recent-articles.html'),
         'recent-articles-simple': resolve(__dirname, 'lpsite/recent-articles-simple.html'),
         'debug-sanity': resolve(__dirname, 'lpsite/debug-sanity.html')

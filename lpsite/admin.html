@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sanity Admin - Syonosuke Links</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f1f3f4;
+        }
+        .admin-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .logo {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .description {
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+        .admin-links {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            align-items: center;
+        }
+        .admin-link {
+            display: inline-block;
+            background: #0070f3;
+            color: white;
+            text-decoration: none;
+            padding: 15px 30px;
+            border-radius: 6px;
+            font-weight: 500;
+            transition: background 0.2s;
+            min-width: 200px;
+        }
+        .admin-link:hover {
+            background: #0051cc;
+        }
+        .admin-link.secondary {
+            background: #666;
+        }
+        .admin-link.secondary:hover {
+            background: #555;
+        }
+        .status {
+            margin-top: 30px;
+            padding: 15px;
+            background: #e8f4fd;
+            border-radius: 6px;
+            border-left: 4px solid #0070f3;
+        }
+        @media (max-width: 600px) {
+            .admin-container {
+                padding: 20px;
+                margin: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <div class="logo">🎛️ Sanity Admin</div>
+        <div class="description">
+            Syonosuke Links のコンテンツ管理システムです。<br>
+            以下のリンクから管理画面にアクセスできます。
+        </div>
+        
+        <div class="admin-links">
+            <a href="/admin" class="admin-link" target="_blank">
+                📊 Sanity Studio（メイン）
+            </a>
+            <a href="https://li8wy5y0.sanity.studio/" class="admin-link secondary" target="_blank">
+                🌐 Sanity Studio（公式）
+            </a>
+        </div>
+        
+        <div class="status">
+            <strong>💡 Tips:</strong><br>
+            • メインが動作しない場合は公式リンクをお試しください<br>
+            • 管理にはSanityアカウントでのログインが必要です<br>
+            • CORS設定済み：このドメインからのアクセスが許可されています
+        </div>
+    </div>
+
+    <script>
+        // 管理画面の状態チェック
+        fetch('/admin')
+            .then(response => {
+                if (response.ok) {
+                    console.log('✅ Sanity Studio is accessible');
+                } else {
+                    console.log('⚠️ Sanity Studio may have issues');
+                }
+            })
+            .catch(error => {
+                console.log('❌ Failed to check Sanity Studio status:', error);
+            });
+    </script>
+</body>
+</html>
