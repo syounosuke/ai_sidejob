@@ -3,6 +3,14 @@
   "outputDirectory": "dist",
   "routes": [
     {
+      "src": "/admin/static/(.*)",
+      "dest": "/admin/static/$1"
+    },
+    {
+      "src": "/admin/vendor/(.*)",
+      "dest": "/admin/vendor/$1"
+    },
+    {
       "src": "/admin/(.*)",
       "dest": "/admin/index.html"
     },
