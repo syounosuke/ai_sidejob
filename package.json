@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build && npm run build:studio",
-    "build:studio": "sanity build dist/admin",
+    "build:studio": "sanity build dist/admin --yes",
     "preview": "vite preview",
     "sanity": "sanity dev"
   },
